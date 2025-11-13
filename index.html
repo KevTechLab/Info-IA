@@ -174,31 +174,356 @@
         </div>
     </div>
 
-    <!-- Experimentos Activos -->
+    <!-- Experimentos & Workflows -->
     <section id="experimentos" class="py-16 bg-gray-800 border-y border-gray-700">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-white mb-8">🔬 Experimentos & Workflows</h2>
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">🔬 Protocolos de Experimentación</h2>
+                    <p class="text-gray-400">Workflows probados y documentados para diferentes casos de uso</p>
+                </div>
+                <button onclick="toggleWorkflowView()" class="bg-gray-900 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700 transition text-sm border border-gray-700">
+                    <span id="viewToggleText">Vista Detallada</span>
+                </button>
+            </div>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-indigo-500 transition">
-                    <div class="text-3xl mb-3">📊</div>
-                    <h3 class="text-xl font-bold text-white mb-2">Content Pipeline</h3>
-                    <p class="text-gray-400 text-sm mb-4">ChatGPT → Ideogram → CapCut</p>
-                    <div class="text-xs text-gray-500">Última ejecución: Hoy</div>
+            <!-- Workflow Categories -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <button onclick="filterWorkflows('all')" class="workflow-filter bg-indigo-600 text-white p-4 rounded-lg hover:bg-indigo-700 transition text-left">
+                    <div class="text-2xl mb-2">🧪</div>
+                    <div class="font-bold">Todos los Workflows</div>
+                    <div class="text-sm opacity-80">15 protocolos</div>
+                </button>
+                <button onclick="filterWorkflows('content')" class="workflow-filter bg-gray-900 text-gray-300 p-4 rounded-lg hover:bg-gray-700 transition text-left border border-gray-700">
+                    <div class="text-2xl mb-2">📝</div>
+                    <div class="font-bold">Content Creation</div>
+                    <div class="text-sm opacity-80">5 workflows</div>
+                </button>
+                <button onclick="filterWorkflows('dev')" class="workflow-filter bg-gray-900 text-gray-300 p-4 rounded-lg hover:bg-gray-700 transition text-left border border-gray-700">
+                    <div class="text-2xl mb-2">💻</div>
+                    <div class="font-bold">Development</div>
+                    <div class="text-sm opacity-80">4 workflows</div>
+                </button>
+            </div>
+
+            <!-- Workflows Grid -->
+            <div id="workflowsGrid" class="space-y-6">
+                <!-- Content Creation Workflows -->
+                <div class="workflow-card bg-gray-900 rounded-lg border border-indigo-500/30 overflow-hidden" data-category="content">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-indigo-500/20 border border-indigo-500 rounded-lg p-3 text-2xl">📱</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Social Media Content Pipeline</h3>
+                                    <p class="text-sm text-gray-400">Texto → Imagen → Post optimizado</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">Probado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. ChatGPT/Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-purple-400">2. Ideogram/Midjourney</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-pink-400">3. Canva</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Genera 5 hooks + copy para post usando ChatGPT con prompt específico para tu nicho</li>
+                                    <li><strong class="text-purple-400">Paso 2:</strong> Crea imagen llamativa con Ideogram (texto legible) o Midjourney (calidad artística)</li>
+                                    <li><strong class="text-pink-400">Paso 3:</strong> Ensambla en Canva: añade branding, ajusta formato por plataforma (1:1, 9:16, 16:9)</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> 5 variaciones de post listas para A/B testing en 15 minutos</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Guarda el prompt de ChatGPT que mejor funcione. Reutiliza el estilo visual en Midjourney con --sref</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-indigo-400 text-sm hover:text-indigo-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-purple-500 transition">
-                    <div class="text-3xl mb-3">🎯</div>
-                    <h3 class="text-xl font-bold text-white mb-2">Landing Generator</h3>
-                    <p class="text-gray-400 text-sm mb-4">Copy.ai → Midjourney → Framer</p>
-                    <div class="text-xs text-gray-500">Última ejecución: Ayer</div>
+                <div class="workflow-card bg-gray-900 rounded-lg border border-pink-500/30 overflow-hidden" data-category="content">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-pink-500/20 border border-pink-500 rounded-lg p-3 text-2xl">🎬</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Video Ads Production Lab</h3>
+                                    <p class="text-sm text-gray-400">Script → Footage → Audio → Edición</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">Probado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. ChatGPT</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-pink-400">2. Pixverse/Luma</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-blue-400">3. ElevenLabs</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-pink-400">4. CapCut</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Script de 30-60 seg con ChatGPT: hook fuerte, problema, solución, CTA</li>
+                                    <li><strong class="text-pink-400">Paso 2:</strong> Genera B-roll con Pixverse/Luma (5-6 clips de 4 seg cada uno)</li>
+                                    <li><strong class="text-blue-400">Paso 3:</strong> Voiceover profesional con ElevenLabs (elige voz que conecte con audiencia)</li>
+                                    <li><strong class="text-pink-400">Paso 4:</strong> Edita en CapCut: subtítulos auto, transiciones, música de biblioteca</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> Video ad profesional en 30-45 minutos vs 3-5 horas tradicional</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Mantén biblioteca de B-roll generado para reutilizar. Testea 3 hooks diferentes con mismo video base.</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-pink-400 text-sm hover:text-pink-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition">
-                    <div class="text-3xl mb-3">🎬</div>
-                    <h3 class="text-xl font-bold text-white mb-2">Video Ads Lab</h3>
-                    <p class="text-gray-400 text-sm mb-4">ChatGPT → Pixverse → ElevenLabs</p>
-                    <div class="text-xs text-gray-500">Última ejecución: Hace 3 días</div>
+                <div class="workflow-card bg-gray-900 rounded-lg border border-purple-500/30 overflow-hidden" data-category="content">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-purple-500/20 border border-purple-500 rounded-lg p-3 text-2xl">📚</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Long-Form Content Factory</h3>
+                                    <p class="text-sm text-gray-400">Research → Outline → Writing → SEO</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">Probado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. Perplexity</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">2. Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-purple-400">3. Midjourney</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">4. Notion AI</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Research con Perplexity (fuentes actualizadas + academic focus)</li>
+                                    <li><strong class="text-indigo-400">Paso 2:</strong> Outline detallado con Claude (200K contexto permite meter todo el research)</li>
+                                    <li><strong class="text-indigo-400">Paso 3:</strong> Escritura sección por sección con Claude, manteniendo tono consistente</li>
+                                    <li><strong class="text-purple-400">Paso 4:</strong> Genera imágenes ilustrativas custom con Midjourney para cada sección</li>
+                                    <li><strong class="text-indigo-400">Paso 5:</strong> Publica en Notion, usa Notion AI para meta descriptions SEO</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> Artículo 2000+ palabras bien researched en 1-2 horas vs 6-8 horas manual</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Usa Claude Projects para mantener contexto entre sesiones. Guarda research de Perplexity como knowledge base.</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-purple-400 text-sm hover:text-purple-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Workflows -->
+                <div class="workflow-card bg-gray-900 rounded-lg border border-green-500/30 overflow-hidden" data-category="dev">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-green-500/20 border border-green-500 rounded-lg p-3 text-2xl">🌐</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Landing Page Speed Build</h3>
+                                    <p class="text-sm text-gray-400">Diseño → Código → Deploy en < 1 hora</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">Probado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-green-400">2. V0/Bolt</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-purple-400">3. Ideogram</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-green-400">4. Vercel</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Define estructura y copy con Claude (sections, headlines, CTAs)</li>
+                                    <li><strong class="text-green-400">Paso 2:</strong> Genera componentes UI con V0 o app completa con Bolt.new</li>
+                                    <li><strong class="text-purple-400">Paso 3:</strong> Crea hero images y assets custom con Ideogram</li>
+                                    <li><strong class="text-green-400">Paso 4:</strong> Deploy a Vercel con dominio custom en minutos</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> Landing production-ready en 45-60 min vs 2-3 días tradicional</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: V0 para componentes específicos, Bolt para apps completas. Ambos generan código que puedes editar.</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-green-400 text-sm hover:text-green-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-card bg-gray-900 rounded-lg border border-blue-500/30 overflow-hidden" data-category="dev">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-blue-500/20 border border-blue-500 rounded-lg p-3 text-2xl">💻</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Full-Stack MVP Sprint</h3>
+                                    <p class="text-sm text-gray-400">Idea → Código → Deploy funcional</p>
+                                </div>
+                            </div>
+                            <span class="bg-yellow-500/20 text-yellow-400 text-xs px-3 py-1 rounded-full border border-yellow-500">Experimental</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-blue-400">2. Cursor</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-green-400">3. Bolt.new</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-blue-400">4. Supabase</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Define arquitectura y tech stack con Claude (PRD completo)</li>
+                                    <li><strong class="text-blue-400">Paso 2:</strong> Setup inicial y estructura con Cursor (@codebase awareness)</li>
+                                    <li><strong class="text-green-400">Paso 3:</strong> Prototipo rápido con Bolt.new para validar UX/UI</li>
+                                    <li><strong class="text-blue-400">Paso 4:</strong> Backend y DB con Supabase (auth + DB + storage integrado)</li>
+                                    <li><strong class="text-blue-400">Paso 5:</strong> Refina código con Cursor (Composer para múltiples archivos)</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> MVP funcional en 1-2 días vs 2-3 semanas tradicional</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Cursor Rules para mantener código consistente. Claude Projects para guardar decisiones arquitectónicas.</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-blue-400 text-sm hover:text-blue-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-card bg-gray-900 rounded-lg border border-orange-500/30 overflow-hidden" data-category="content">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-orange-500/20 border border-orange-500 rounded-lg p-3 text-2xl">🎵</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Podcast/Audio Content Lab</h3>
+                                    <p class="text-sm text-gray-400">Script → Voz → Música → Producción</p>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-full border border-green-500">Probado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-blue-400">2. ElevenLabs</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-orange-400">3. Suno/Udio</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-pink-400">4. CapCut</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Script completo con Claude (estructura, timing, pausas naturales)</li>
+                                    <li><strong class="text-blue-400">Paso 2:</strong> Clona tu voz con ElevenLabs (1-2 min de audio limpio)</li>
+                                    <li><strong class="text-blue-400">Paso 3:</strong> Genera audio del script con tu voz clonada</li>
+                                    <li><strong class="text-orange-400">Paso 4:</strong> Música de fondo/intro/outro con Suno o Udio (copyright-safe)</li>
+                                    <li><strong class="text-pink-400">Paso 5:</strong> Mix final en CapCut o Audacity (niveles, transiciones)</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> Episodio podcast 20-30 min en 2-3 horas vs día completo tradicional</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Mantén biblioteca de música generada para reutilizar. Clona 2-3 tonos de voz (formal, casual, energético).</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-orange-400 text-sm hover:text-orange-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-card bg-gray-900 rounded-lg border border-cyan-500/30 overflow-hidden" data-category="dev">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-cyan-500/20 border border-cyan-500 rounded-lg p-3 text-2xl">🤖</div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">AI Agent Builder</h3>
+                                    <p class="text-sm text-gray-400">Diseño → Implementación → Testing</p>
+                                </div>
+                            </div>
+                            <span class="bg-yellow-500/20 text-yellow-400 text-xs px-3 py-1 rounded-full border border-yellow-500">Avanzado</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm flex-wrap">
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">1. Claude</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-cyan-400">2. Make.com</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-indigo-400">3. OpenAI API</div>
+                                <span class="text-gray-500">→</span>
+                                <div class="bg-gray-800 px-3 py-1 rounded border border-gray-700 text-blue-400">4. Airtable</div>
+                            </div>
+                            
+                            <div class="workflow-details hidden bg-gray-800 p-4 rounded-lg border border-gray-700">
+                                <h4 class="font-bold text-white mb-3">📋 Protocolo Detallado:</h4>
+                                <ol class="space-y-2 text-sm text-gray-300">
+                                    <li><strong class="text-indigo-400">Paso 1:</strong> Define comportamiento del agente con Claude (personalidad, reglas, flujos)</li>
+                                    <li><strong class="text-cyan-400">Paso 2:</strong> Construye automation en Make.com (webhooks, condiciones, loops)</li>
+                                    <li><strong class="text-indigo-400">Paso 3:</strong> Integra OpenAI/Claude API con system prompt optimizado</li>
+                                    <li><strong class="text-blue-400">Paso 4:</strong> Usa Airtable como memory/knowledge base del agente</li>
+                                    <li><strong class="text-cyan-400">Paso 5:</strong> Testing exhaustivo con edge cases</li>
+                                    <li><strong class="text-green-400">Resultado:</strong> Agente funcional para tareas específicas (soporte, research, data entry)</li>
+                                </ol>
+                                <div class="mt-4 pt-4 border-t border-gray-700">
+                                    <p class="text-xs text-gray-500">💡 Tip: Empieza simple (1 tarea), añade complejidad gradual. Loguea todas las interacciones para debugging.</p>
+                                </div>
+                            </div>
+                            
+                            <button onclick="toggleWorkflowDetails(this)" class="text-cyan-400 text-sm hover:text-cyan-300">
+                                Ver protocolo completo →
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1139,6 +1464,107 @@
             updateFavCount();
             document.getElementById('totalTools').textContent = tools.length;
         });
+
+       // ============ WORKFLOW FUNCTIONS ============
+
+    // Mostrar / ocultar detalles del protocolo individual
+    function toggleWorkflowDetails(button) {
+        const card = button.closest('.workflow-card');
+        const details = card.querySelector('.workflow-details');
+        
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+            details.classList.add('animate-fadeIn');
+            button.textContent = 'Ocultar protocolo ↑';
+        } else {
+            details.classList.add('hidden');
+            details.classList.remove('animate-fadeIn');
+            button.textContent = 'Ver protocolo completo →';
+        }
+    }
+
+    // Filtrar workflows por categoría
+    function filterWorkflows(category, event) {
+        const cards = document.querySelectorAll('.workflow-card');
+        const buttons = document.querySelectorAll('.workflow-filter');
+
+        // Actualizar estilos de botones
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-indigo-600', 'text-white');
+            btn.classList.add('bg-gray-900', 'text-gray-300', 'border', 'border-gray-700');
+        });
+
+        // Activar botón actual
+        if (event) {
+            event.currentTarget.classList.remove('bg-gray-900', 'text-gray-300', 'border', 'border-gray-700');
+            event.currentTarget.classList.add('bg-indigo-600', 'text-white');
+        }
+
+        // Filtrar tarjetas
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.classList.remove('hidden');
+                card.classList.add('block');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+
+    // Alternar entre vista detallada y compacta
+    function toggleWorkflowView() {
+        const grid = document.getElementById('workflowsGrid');
+        const buttonText = document.getElementById('viewToggleText');
+        const cards = grid.querySelectorAll('.workflow-card');
+
+        const isDetailed = grid.classList.contains('detailed-view');
+
+        if (isDetailed) {
+            // Cambiar a vista compacta
+            grid.classList.remove('detailed-view');
+            buttonText.textContent = 'Vista Detallada';
+            cards.forEach(card => {
+                const details = card.querySelector('.workflow-details');
+                const toggleBtn = card.querySelector('button[onclick^="toggleWorkflowDetails"]');
+                if (details && !details.classList.contains('hidden')) {
+                    details.classList.add('hidden');
+                    toggleBtn.textContent = 'Ver protocolo completo →';
+                }
+            });
+        } else {
+            // Cambiar a vista detallada (muestra todos los protocolos)
+            grid.classList.add('detailed-view');
+            buttonText.textContent = 'Vista Compacta';
+            cards.forEach(card => {
+                const details = card.querySelector('.workflow-details');
+                const toggleBtn = card.querySelector('button[onclick^="toggleWorkflowDetails"]');
+                if (details) {
+                    details.classList.remove('hidden');
+                    toggleBtn.textContent = 'Ocultar protocolo ↑';
+                }
+            });
+        }
+    }
+
+    // Inicializar al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        filterWorkflows('all');
+    });
+
+    // ============ ANIMACIONES OPCIONALES ============
+    // Añadir una animación suave con Tailwind
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+    `;
+    document.head.appendChild(style);
+        
     </script>
 </body>
 </html>
