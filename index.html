@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lab — Laboratorio de Herramientas IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+    <!-- Navigation -->
+    <nav class="bg-gray-800 shadow-lg sticky top-0 z-50 border-b border-indigo-500">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-xl">
+                        🧪
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">AI Lab</h1>
+                        <p class="text-xs text-gray-400">Laboratorio de Experimentación</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#laboratorio" class="text-gray-300 hover:text-indigo-400 transition">Laboratorio</a>
+                    <a href="#experimentos" class="text-gray-300 hover:text-indigo-400 transition">Experimentos</a>
+                    <a href="#documentacion" class="text-gray-300 hover:text-indigo-400 transition">Documentación</a>
+                    <a href="#favoritos" class="text-gray-300 hover:text-indigo-400 transition flex items-center gap-1">
+                        <span>⭐</span> Toolkit (<span id="favCount">0</span>)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 py-20 border-b border-indigo-500">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-indigo-500/20 border border-indigo-500 rounded-full text-indigo-300 text-sm">
+                🔬 Entorno de Pruebas y Desarrollo
+            </div>
+            <h1 class="text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                AI Laboratory
+            </h1>
+            <p class="text-xl mb-8 text-gray-300 max-w-2xl mx-auto">
+                Espacio colaborativo para experimentar, documentar y optimizar herramientas de inteligencia artificial
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#laboratorio" class="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-indigo-700 transition">
+                    Iniciar Experimentos
+                </a>
+                <a href="#documentacion" class="bg-gray-800 text-white font-semibold px-8 py-3 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                    Ver Docs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Dashboard -->
+    <section class="py-8 bg-gray-800 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="text-gray-400 text-sm mb-1">Herramientas Activas</div>
+                    <div class="text-3xl font-bold text-indigo-400" id="totalTools">15</div>
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="text-gray-400 text-sm mb-1">En Mi Toolkit</div>
+                    <div class="text-3xl font-bold text-purple-400" id="toolkitCount">0</div>
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="text-gray-400 text-sm mb-1">Categorías</div>
+                    <div class="text-3xl font-bold text-pink-400">5</div>
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="text-gray-400 text-sm mb-1">Estado</div>
+                    <div class="text-sm font-bold text-green-400 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                        Operacional
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Lab Section -->
+    <section id="laboratorio" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">🧪 Estaciones de Trabajo</h2>
+                    <p class="text-gray-400">Selecciona y experimenta con diferentes herramientas de IA</p>
+                </div>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="mb-8 space-y-4">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="🔍 Buscar herramientas, categorías o casos de uso..." 
+                        class="w-full px-6 py-4 bg-gray-800 border-2 border-gray-700 rounded-lg focus:border-indigo-500 focus:outline-none text-lg text-white placeholder-gray-500"
+                    >
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="filterTools('all')" class="filter-btn bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition font-medium">
+                        Todas las Estaciones
+                    </button>
+                    <button onclick="filterTools('texto')" class="filter-btn bg-gray-800 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        📝 Texto
+                    </button>
+                    <button onclick="filterTools('imagen')" class="filter-btn bg-gray-800 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        🎨 Imagen
+                    </button>
+                    <button onclick="filterTools('video')" class="filter-btn bg-gray-800 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        🎬 Video
+                    </button>
+                    <button onclick="filterTools('audio')" class="filter-btn bg-gray-800 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        🎙️ Audio
+                    </button>
+                    <button onclick="filterTools('web')" class="filter-btn bg-gray-800 text-gray-300 px-5 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        🌐 Web
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tools Grid -->
+            <div id="toolsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tools will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Detail Modal -->
+    <div id="toolModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onclick="closeModal(event)">
+        <div class="bg-gray-800 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-gray-700" onclick="event.stopPropagation()">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex-1">
+                        <h3 id="modalTitle" class="text-3xl font-bold text-white mb-2"></h3>
+                        <div id="modalCategory" class="inline-block px-3 py-1 rounded-full text-sm font-medium"></div>
+                    </div>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-white text-3xl leading-none">×</button>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-400 mb-2">📋 DESCRIPCIÓN</h4>
+                        <p id="modalDescription" class="text-gray-300"></p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-400 mb-2">💡 CASOS DE USO</h4>
+                        <ul id="modalUseCases" class="space-y-2"></ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-400 mb-2">⚡ TIPS DE OPTIMIZACIÓN</h4>
+                        <ul id="modalTips" class="space-y-2"></ul>
+                    </div>
+                    
+                    <div class="flex gap-3 pt-4">
+                        <a id="modalLink" href="#" target="_blank" class="flex-1 bg-indigo-600 text-white text-center font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition">
+                            🚀 Abrir Herramienta
+                        </a>
+                        <button onclick="toggleFavoriteFromModal()" id="modalFavBtn" class="bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition">
+                            ⭐
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experimentos Activos -->
+    <section id="experimentos" class="py-16 bg-gray-800 border-y border-gray-700">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-white mb-8">🔬 Experimentos & Workflows</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-indigo-500 transition">
+                    <div class="text-3xl mb-3">📊</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Content Pipeline</h3>
+                    <p class="text-gray-400 text-sm mb-4">ChatGPT → Ideogram → CapCut</p>
+                    <div class="text-xs text-gray-500">Última ejecución: Hoy</div>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-purple-500 transition">
+                    <div class="text-3xl mb-3">🎯</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Landing Generator</h3>
+                    <p class="text-gray-400 text-sm mb-4">Copy.ai → Midjourney → Framer</p>
+                    <div class="text-xs text-gray-500">Última ejecución: Ayer</div>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700 hover:border-pink-500 transition">
+                    <div class="text-3xl mb-3">🎬</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Video Ads Lab</h3>
+                    <p class="text-gray-400 text-sm mb-4">ChatGPT → Pixverse → ElevenLabs</p>
+                    <div class="text-xs text-gray-500">Última ejecución: Hace 3 días</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mi Toolkit -->
+    <section id="favoritos" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">⭐ Mi Toolkit Personal</h2>
+                    <p class="text-gray-400">Herramientas que uso frecuentemente en mis experimentos</p>
+                </div>
+                <button onclick="exportToolkit()" class="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-700 transition text-sm border border-gray-700">
+                    📥 Exportar Lista
+                </button>
+            </div>
+            <div id="favoritesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full text-center py-16 border-2 border-dashed border-gray-700 rounded-lg">
+                    <div class="text-6xl mb-4">🔬</div>
+                    <p class="text-lg text-gray-400 mb-2">Tu toolkit está vacío</p>
+                    <p class="text-sm text-gray-500">Haz clic en la estrella de cualquier herramienta para agregarla a tu colección personal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentacion" class="py-16 bg-gray-800 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-white mb-8">📚 Documentación & Buenas Prácticas</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                    <h3 class="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
+                        <span>✅</span> Protocolos de Experimentación
+                    </h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 mt-1">→</span>
+                            <span>Siempre verificar outputs antes de producción</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 mt-1">→</span>
+                            <span>Documentar configuraciones que funcionan bien</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 mt-1">→</span>
+                            <span>Iterar en pequeños pasos, no buscar perfección inicial</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 mt-1">→</span>
+                            <span>Combinar múltiples herramientas para mejores resultados</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 mt-1">→</span>
+                            <span>Mantener respaldos de prompts y configuraciones exitosas</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                    <h3 class="text-xl font-bold text-red-400 mb-4 flex items-center gap-2">
+                        <span>⚠️</span> Precauciones de Seguridad
+                    </h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400 mt-1">→</span>
+                            <span>Nunca compartir información confidencial en prompts</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400 mt-1">→</span>
+                            <span>Verificar originalidad de contenido generado</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400 mt-1">→</span>
+                            <span>Monitorear uso de créditos y límites de las APIs</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400 mt-1">→</span>
+                            <span>No depender 100% de IA, mantener supervisión humana</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400 mt-1">→</span>
+                            <span>Revisar términos de uso comercial de cada herramienta</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm">🧪 AI Laboratory — Entorno de experimentación colaborativa</p>
+            <p class="text-gray-600 text-xs mt-2">Última actualización: 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============ DATA ============
+        const tools = [
+            { 
+                name: 'ChatGPT', 
+                category: 'texto', 
+                url: 'https://chat.openai.com', 
+                description: 'Modelo de lenguaje avanzado para generación de texto, conversaciones, análisis y asistencia en tareas complejas.',
+                useCases: [
+                    'Generación de contenido para blogs y redes sociales',
+                    'Análisis y resumen de documentos extensos',
+                    'Brainstorming de ideas creativas',
+                    'Debugging y asistencia en programación',
+                    'Creación de scripts y automatizaciones'
+                ],
+                tips: [
+                    'Usa prompts en inglés para mejores resultados',
+                    'Sé específico con el formato de salida deseado',
+                    'Utiliza ejemplos para guiar el estilo de respuesta',
+                    'Itera con el chat, no busques perfección en el primer prompt'
+                ]
+            },
+            { 
+                name: 'Copy.ai', 
+                category: 'texto', 
+                url: 'https://www.copy.ai', 
+                description: 'Plataforma especializada en copywriting para marketing digital, emails y contenido comercial optimizado para conversión.',
+                useCases: [
+                    'Headlines para anuncios y landing pages',
+                    'Descripciones de productos para ecommerce',
+                    'Emails de ventas y newsletters',
+                    'Posts para redes sociales con CTAs',
+                    'Scripts para videos publicitarios'
+                ],
+                tips: [
+                    'Proporciona contexto sobre tu audiencia objetivo',
+                    'Prueba múltiples variaciones y haz A/B testing',
+                    'Ajusta el tono según tu marca',
+                    'Combina con herramientas de análisis de SEO'
+                ]
+            },
+            { 
+                name: 'Quillbot', 
+                category: 'texto', 
+                url: 'https://quillbot.com', 
+                description: 'Herramienta de parafraseo inteligente y mejora de textos existentes, ideal para refinamiento de contenido.',
+                useCases: [
+                    'Reescribir contenido para evitar duplicados',
+                    'Simplificar textos técnicos complejos',
+                    'Ajustar tono formal/informal de documentos',
+                    'Mejorar claridad de textos académicos',
+                    'Optimizar longitud de contenido'
+                ],
+                tips: [
+                    'Usa el modo "Fluency" para textos naturales',
+                    'El modo "Formal" es ideal para documentos profesionales',
+                    'Revisa siempre el resultado, no copies automáticamente',
+                    'Combina con gramática checkers para mejor calidad'
+                ]
+            },
+            { 
+                name: 'Ideogram', 
+                category: 'imagen', 
+                url: 'https://ideogram.ai', 
+                description: 'Generador de imágenes con IA destacado por su capacidad superior para renderizar texto dentro de imágenes.',
+                useCases: [
+                    'Logos y branding con tipografía integrada',
+                    'Mockups de productos con texto legible',
+                    'Posters y material gráfico promocional',
+                    'Thumbnails para YouTube con títulos',
+                    'Infografías y contenido educativo visual'
+                ],
+                tips: [
+                    'Especifica el estilo visual claramente (realistic, vector, etc)',
+                    'Para texto legible, usa comillas y mayúsculas en el prompt',
+                    'Experimenta con diferentes aspect ratios según tu necesidad',
+                    'Itera ajustando detalles de iluminación y composición'
+                ]
+            },
+            { 
+                name: 'Midjourney', 
+                category: 'imagen', 
+                url: 'https://www.midjourney.com', 
+                description: 'Plataforma líder en generación artística de imágenes con IA, conocida por resultados de alta calidad estética.',
+                useCases: [
+                    'Arte conceptual para proyectos creativos',
+                    'Ilustraciones para libros y publicaciones',
+                    'Referencias visuales para diseño',
+                    'Mood boards y exploración de estilos',
+                    'Assets para juegos y animación'
+                ],
+                tips: [
+                    'Usa parámetros como --ar para aspect ratio y --stylize para control artístico',
+                    'Estudia prompts exitosos de la comunidad',
+                    'Combina estilos de artistas conocidos',
+                    'Usa --v 6 para la versión más reciente del modelo'
+                ]
+            },
+            { 
+                name: 'Canva', 
+                category: 'imagen', 
+                url: 'https://www.canva.com', 
+                description: 'Suite completa de diseño gráfico con templates pre-diseñados y capacidades de IA integradas.',
+                useCases: [
+                    'Diseño rápido de posts para redes sociales',
+                    'Presentaciones y slides profesionales',
+                    'Flyers y material impreso',
+                    'Edición básica de fotos y collages',
+                    'Infografías y visualización de datos'
+                ],
+                tips: [
+                    'Aprovecha los templates como punto de partida',
+                    'Usa "Magic Design" para generación automática',
+                    'Mantén consistencia con Brand Kit',
+                    'Exporta en alta resolución para uso profesional'
+                ]
+            },
+            { 
+                name: 'Freepik', 
+                category: 'imagen', 
+                url: 'https://www.freepik.com', 
+                description: 'Biblioteca masiva de recursos gráficos con generador de imágenes IA integrado (Pikaso).',
+                useCases: [
+                    'Buscar vectores e iconos para proyectos',
+                    'Generar imágenes de stock personalizadas',
+                    'Encontrar mockups para presentaciones',
+                    'Recursos para diseño web y UI',
+                    'Texturas y backgrounds'
+                ],
+                tips: [
+                    'Usa filtros avanzados para encontrar exactamente lo que necesitas',
+                    'El generador IA es excelente para stock photos',
+                    'Verifica licencias antes de uso comercial',
+                    'Combina elementos descargados con tus propias ediciones'
+                ]
+            },
+            { 
+                name: 'Pixverse', 
+                category: 'video', 
+                url: 'https://pixverse.ai', 
+                description: 'Plataforma de generación de video con IA desde texto o imágenes, especializada en animaciones.',
+                useCases: [
+                    'Animaciones cortas para redes sociales',
+                    'B-roll generado para videos explicativos',
+                    'Concept videos para pitches',
+                    'Efectos visuales y transiciones únicas',
+                    'Contenido dinámico para ads'
+                ],
+                tips: [
+                    'Comienza con prompts simples y añade complejidad gradualmente',
+                    'Usa imagen base + prompt para mayor control',
+                    'Los videos cortos (2-4 seg) tienen mejor calidad',
+                    'Combina múltiples clips para videos más largos'
+                ]
+            },
+            { 
+                name: 'CapCut', 
+                category: 'video', 
+                url: 'https://www.capcut.com', 
+                description: 'Editor de video intuitivo con herramientas de IA para subtítulos automáticos y efectos.',
+                useCases: [
+                    'Edición rápida de videos para TikTok/Instagram',
+                    'Añadir subtítulos automáticos con IA',
+                    'Aplicar transiciones y efectos trending',
+                    'Remover backgrounds de video',
+                    'Ajustar aspect ratios para diferentes plataformas'
+                ],
+                tips: [
+                    'Usa templates para velocidad de producción',
+                    'Los subtítulos auto-generados son muy precisos',
+                    'Exporta en 1080p mínimo para calidad profesional',
+                    'Aprovecha la biblioteca de música libre de copyright'
+                ]
+            },
+            { 
+                name: 'Runway', 
+                category: 'video', 
+                url: 'https://runwayml.com', 
+                description: 'Suite profesional de edición con IA: generación de video, inpainting, motion tracking y más.',
+                useCases: [
+                    'Generación de video desde texto (Gen-2)',
+                    'Eliminar objetos de videos (inpainting)',
+                    'Extender duración de clips con IA',
+                    'Motion tracking y rotoscoping automatizado',
+                    'Efectos visuales avanzados'
+                ],
+                tips: [
+                    'Gen-2 funciona mejor con prompts cinematográficos',
+                    'Usa máscaras precisas para inpainting efectivo',
+                    'Los créditos se consumen rápido, planifica bien',
+                    'Exporta versiones de prueba antes del render final'
+                ]
+            },
+            { 
+                name: 'D-ID', 
+                category: 'video', 
+                url: 'https://www.d-id.com', 
+                description: 'Plataforma para crear videos con avatares parlantes usando IA, ideal para presentadores virtuales.',
+                useCases: [
+                    'Videos de presentación corporativa',
+                    'Contenido educativo con presentador',
+                    'Mensajes personalizados escalables',
+                    'Tutoriales y demos de producto',
+                    'Portavoces virtuales multilingües'
+                ],
+                tips: [
+                    'Usa scripts naturales para sincronización de labios realista',
+                    'Elige avatares que conecten con tu audiencia',
+                    'Combina con ElevenLabs para voces custom',
+                    'Mantén videos bajo 2 minutos para mejor engagement'
+                ]
+            },
+            { 
+                name: 'ElevenLabs', 
+                category: 'audio', 
+                url: 'https://elevenlabs.io', 
+                description: 'Generador líder de voz con IA, clonación de voz y síntesis de speech ultra-realista.',
+                useCases: [
+                    'Voiceovers para videos y podcasts',
+                    'Clonación de voz para contenido consistente',
+                    'Narración de audiolibros',
+                    'Asistentes de voz custom',
+                    'Doblaje multilingüe de contenido'
+                ],
+                tips: [
+                    'Para clonación, usa audio limpio de 1-2 minutos mínimo',
+                    'Ajusta stability y similarity según naturalidad deseada',
+                    'Usa puntuación en el texto para controlar pausas',
+                    'El modelo multilingual es excelente para acentos'
+                ]
+            },
+            { 
+                name: 'Dora', 
+                category: 'web', 
+                url: 'https://dora.run', 
+                description: 'Constructor de sitios web 3D sin código, permite crear experiencias web inmersivas e interactivas.',
+                useCases: [
+                    'Landing pages con animaciones 3D',
+                    'Portfolios creativos inmersivos',
+                    'Product showcases interactivos',
+                    'Experiencias de marca únicas',
+                    'Microsites para campañas especiales'
+                ],
+                tips: [
+                    'Empieza con templates y personaliza desde ahí',
+                    'Optimiza assets 3D para tiempos de carga rápidos',
+                    'Prueba en múltiples dispositivos, especialmente móvil',
+                    'Combina con Spline para modelado 3D custom'
+                ]
+            },
+            { 
+                name: 'Durable', 
+                category: 'web', 
+                url: 'https://durable.co', 
+                description: 'Generador instantáneo de sitios web completos con IA, ideal para pequeños negocios y MVPs rápidos.',
+                useCases: [
+                    'Sitios web para pequeños negocios en minutos',
+                    'Landing pages de validación rápida',
+                    'Sitios temporales para eventos',
+                    'Portfolios básicos y páginas de contacto',
+                    'Prototipos web para pitch decks'
+                ],
+                tips: [
+                    'Proporciona información detallada de tu negocio en el setup',
+                    'Personaliza colores y tipografía post-generación',
+                    'Integra herramientas de analytics desde el inicio',
+                    'Ideal para MVP, luego migra a plataforma robusta si escala'
+                ]
+            },
+            { 
+                name: 'Framer', 
+                category: 'web', 
+                url: 'https://www.framer.com', 
+                description: 'Plataforma profesional de diseño y desarrollo web con código, animaciones avanzadas y CMS integrado.',
+                useCases: [
+                    'Sitios web de alta calidad con animaciones',
+                    'Landing pages de conversión optimizadas',
+                    'Portfolios interactivos de diseñadores',
+                    'Sitios corporativos con CMS',
+                    'Prototipos interactivos de productos'
+                ],
+                tips: [
+                    'Domina los componentes para reutilización eficiente',
+                    'Usa variables para mantener consistencia de diseño',
+                    'Las animaciones scroll son el punto fuerte de Framer',
+                    'Integra con Notion o Airtable como CMS externo'
+                ]
+            },
+            { 
+                name: 'Claude', 
+                category: 'texto', 
+                url: 'https://claude.ai', 
+                description: 'Asistente de IA de Anthropic con capacidad de análisis profundo, razonamiento largo y manejo de contextos extensos (200K tokens).',
+                useCases: [
+                    'Análisis de documentos largos y contratos',
+                    'Investigación y síntesis de información compleja',
+                    'Programación asistida con debugging avanzado',
+                    'Escritura técnica y documentación',
+                    'Traducción y localización de contenido'
+                ],
+                tips: [
+                    'Aprovecha la ventana de contexto gigante para documentos extensos',
+                    'Excelente para seguir instrucciones complejas paso a paso',
+                    'Usa artifacts para obtener código ejecutable y editable',
+                    'Mejor que GPT-4 en razonamiento ético y análisis matizado'
+                ]
+            },
+            { 
+                name: 'Gemini', 
+                category: 'texto', 
+                url: 'https://gemini.google.com', 
+                description: 'Modelo multimodal de Google con integración nativa a servicios de Google y búsqueda en tiempo real.',
+                useCases: [
+                    'Búsqueda y análisis con información actualizada',
+                    'Integración con Gmail, Docs, Drive',
+                    'Análisis de imágenes y documentos',
+                    'Investigación académica con fuentes citadas',
+                    'Planificación de viajes con Google Maps'
+                ],
+                tips: [
+                    'Usa las extensiones de Google Workspace para máxima productividad',
+                    'Excelente para búsquedas que requieren info actualizada',
+                    'La versión Advanced tiene mejor razonamiento',
+                    'Integra con Google Sheets para análisis de datos'
+                ]
+            },
+            { 
+                name: 'Perplexity', 
+                category: 'texto', 
+                url: 'https://www.perplexity.ai', 
+                description: 'Motor de búsqueda con IA que proporciona respuestas con fuentes citadas en tiempo real.',
+                useCases: [
+                    'Investigación rápida con fuentes verificables',
+                    'Seguimiento de noticias y tendencias actuales',
+                    'Comparativas de productos y servicios',
+                    'Investigación académica y científica',
+                    'Fact-checking y verificación de información'
+                ],
+                tips: [
+                    'Usa "Focus" para búsquedas específicas (Academic, Writing, etc)',
+                    'Excelente para obtener información actualizada al segundo',
+                    'Las fuentes están siempre citadas y linkeadas',
+                    'Modo Pro tiene búsquedas ilimitadas y modelos avanzados'
+                ]
+            },
+            { 
+                name: 'Cursor', 
+                category: 'texto', 
+                url: 'https://cursor.sh', 
+                description: 'IDE basado en VSCode con IA integrada para programación asistida y generación de código contextual.',
+                useCases: [
+                    'Desarrollo full-stack con asistencia de IA',
+                    'Refactoring automático de código',
+                    'Generación de tests unitarios',
+                    'Debug inteligente con análisis de errores',
+                    'Documentación automática de código'
+                ],
+                tips: [
+                    'Cmd+K para editar código inline con IA',
+                    'Usa @codebase para que entienda todo tu proyecto',
+                    'Composer para generar múltiples archivos a la vez',
+                    'Mejor que Copilot para proyectos complejos con contexto'
+                ]
+            },
+            { 
+                name: 'V0 by Vercel', 
+                category: 'web', 
+                url: 'https://v0.dev', 
+                description: 'Generador de componentes UI con IA usando React, Tailwind y Shadcn. Código production-ready.',
+                useCases: [
+                    'Prototipado rápido de interfaces',
+                    'Generación de componentes React complejos',
+                    'Landing pages con código limpio',
+                    'Dashboards y admin panels',
+                    'Sistema de diseño consistente'
+                ],
+                tips: [
+                    'Describe la UI en lenguaje natural, sé específico',
+                    'Genera código que puedes copiar directo a tu proyecto',
+                    'Usa el chat para iterar y refinar el diseño',
+                    'Componentes compatibles con Next.js out-of-the-box'
+                ]
+            },
+            { 
+                name: 'Bolt.new', 
+                category: 'web', 
+                url: 'https://bolt.new', 
+                description: 'Entorno de desarrollo web completo con IA. Crea, edita y deploya apps full-stack desde el navegador.',
+                useCases: [
+                    'Crear MVPs completos en minutos',
+                    'Desarrollo full-stack sin setup local',
+                    'Prototipos interactivos con backend',
+                    'Apps con bases de datos integradas',
+                    'Demos para clientes con deploy instantáneo'
+                ],
+                tips: [
+                    'Describe la app completa incluyendo backend y DB',
+                    'Puedes editar código manualmente o con IA',
+                    'Deploy automático, obtienes URL para compartir',
+                    'Soporta frameworks modernos: React, Vue, Svelte, etc'
+                ]
+            },
+            { 
+                name: 'Suno', 
+                category: 'audio', 
+                url: 'https://suno.com', 
+                description: 'Generador de música completa con IA. Crea canciones con letra, melodía y producción profesional.',
+                useCases: [
+                    'Música de fondo para videos y podcasts',
+                    'Jingles personalizados para marcas',
+                    'Canciones custom con letras específicas',
+                    'Exploración de estilos musicales',
+                    'Bandas sonoras para contenido'
+                ],
+                tips: [
+                    'Describe el género, mood y tempo claramente',
+                    'Puedes proporcionar letras propias o que las genere',
+                    'Genera múltiples variaciones y elige la mejor',
+                    'Verifica derechos de uso para proyectos comerciales'
+                ]
+            },
+            { 
+                name: 'Udio', 
+                category: 'audio', 
+                url: 'https://udio.com', 
+                description: 'Competidor de Suno, generador de música con IA de alta calidad y control fino sobre composición.',
+                useCases: [
+                    'Producción musical profesional',
+                    'Remixes y variaciones de estilos',
+                    'Música original para proyectos creativos',
+                    'Experimentación con fusión de géneros',
+                    'Stems y pistas separadas'
+                ],
+                tips: [
+                    'Mejor calidad de audio que Suno en algunos casos',
+                    'Permite extender canciones más allá del límite inicial',
+                    'Usa inpainting para modificar secciones específicas',
+                    'Comunidad activa con prompts compartidos'
+                ]
+            },
+            { 
+                name: 'Luma AI', 
+                category: 'video', 
+                url: 'https://lumalabs.ai', 
+                description: 'Generación de video 3D realista con IA. Dream Machine crea videos cinematográficos desde texto.',
+                useCases: [
+                    'Videos cinematográficos de alta calidad',
+                    'Animaciones 3D desde descripciones',
+                    'Content para ads premium',
+                    'Concept videos para presentaciones',
+                    'Efectos visuales imposibles con video tradicional'
+                ],
+                tips: [
+                    'Prompts cinematográficos funcionan mejor',
+                    'Describe movimientos de cámara específicos',
+                    'Calidad superior a Pixverse en realismo',
+                    'Genera 5 segundos por clip, concatena para videos largos'
+                ]
+            },
+            { 
+                name: 'HeyGen', 
+                category: 'video', 
+                url: 'https://www.heygen.com', 
+                description: 'Plataforma de video con avatares IA y traducción de voz. Crea portavoces virtuales en 40+ idiomas.',
+                useCases: [
+                    'Videos corporativos multilingües',
+                    'Capacitación y onboarding escalable',
+                    'Mensajes personalizados en masa',
+                    'Traducción de videos con lip-sync',
+                    'Presentadores virtuales para e-learning'
+                ],
+                tips: [
+                    'Mejor que D-ID en calidad de lip-sync',
+                    'Usa tu propia foto para crear avatar personalizado',
+                    'La traducción mantiene tu voz en otros idiomas',
+                    'Templates pre-hechos aceleran producción'
+                ]
+            },
+            { 
+                name: 'Replicate', 
+                category: 'imagen', 
+                url: 'https://replicate.com', 
+                description: 'Plataforma que ejecuta modelos open-source de IA vía API. Acceso a SDXL, Flux, Stable Video y más.',
+                useCases: [
+                    'Integrar IA en tus propias apps',
+                    'Probar modelos open-source sin infraestructura',
+                    'Generar imágenes vía API para automatización',
+                    'Fine-tuning de modelos custom',
+                    'Desarrollo de productos con IA'
+                ],
+                tips: [
+                    'Más económico que APIs propietarias para volumen',
+                    'Acceso a modelos cutting-edge apenas salen',
+                    'Documentación excelente para developers',
+                    'Ideal para experimentar antes de comprometerte'
+                ]
+            },
+            { 
+                name: 'Flux', 
+                category: 'imagen', 
+                url: 'https://flux1.ai', 
+                description: 'Modelo de generación de imágenes open-source de Black Forest Labs. Calidad comparable a Midjourney.',
+                useCases: [
+                    'Generación de imágenes fotorrealistas',
+                    'Arte digital de alta calidad',
+                    'Logos y branding con texto perfecto',
+                    'Ilustraciones para publicaciones',
+                    'Concept art profesional'
+                ],
+                tips: [
+                    'Flux Pro tiene la mejor calidad, Dev es gratuito',
+                    'Excelente seguimiento de prompts complejos',
+                    'Render de texto superior a SDXL',
+                    'Usa en Replicate o ComfyUI para máximo control'
+                ]
+            },
+            { 
+                name: 'Leonardo AI', 
+                category: 'imagen', 
+                url: 'https://leonardo.ai', 
+                description: 'Suite de generación de imágenes con control fino. Modelos especializados para assets de juegos y diseño.',
+                useCases: [
+                    'Assets para videojuegos (texturas, sprites, UI)',
+                    'Diseño de personajes con consistencia',
+                    'Mockups y product design',
+                    'Generación por lotes para variaciones',
+                    'Canvas para edición con IA'
+                ],
+                tips: [
+                    'Mejor que Midjourney para assets técnicos',
+                    'Image guidance para mantener consistencia',
+                    'Modelos preentrenados por categoría (fantasy, sci-fi, etc)',
+                    'Canvas permite pintar y expandir imágenes con IA'
+                ]
+            },
+            { 
+                name: 'Notion AI', 
+                category: 'texto', 
+                url: 'https://www.notion.so', 
+                description: 'IA integrada en Notion para escritura, resúmenes y organización de información.',
+                useCases: [
+                    'Resumir reuniones y documentos largos',
+                    'Generar documentación desde notas',
+                    'Traducción dentro de páginas',
+                    'Brainstorming y expansión de ideas',
+                    'Formato automático de contenido'
+                ],
+                tips: [
+                    'Usa /ai para invocar comandos rápidos',
+                    'Excelente para mejorar redacción de docs',
+                    'Integrado con toda tu base de conocimiento',
+                    'Más económico que pagar ChatGPT Plus separado'
+                ]
+            },
+            { 
+                name: 'Make (Integromat)', 
+                category: 'texto', 
+                url: 'https://www.make.com', 
+                description: 'Plataforma de automatización visual no-code. Conecta apps y servicios con IA integrada.',
+                useCases: [
+                    'Automatizar workflows entre apps',
+                    'Procesar datos con IA y enviar a CRM',
+                    'Generar contenido y publicar automáticamente',
+                    'Monitorear feeds y crear reportes',
+                    'Integrar múltiples herramientas de IA en pipelines'
+                ],
+                tips: [
+                    'Más poderoso que Zapier para casos complejos',
+                    'Interface visual facilita debugging',
+                    'Conecta OpenAI, Claude, etc vía API',
+                    'Free tier generoso para experimentar'
+                ]
+            }
+        ];
+
+        let currentToolForModal = null;
+
+        // ============ FAVORITES SYSTEM ============
+        let favorites = JSON.parse(localStorage.getItem('aiLabFavorites')) || [];
+
+        function toggleFavorite(toolName) {
+            const index = favorites.indexOf(toolName);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(toolName);
+            }
+            localStorage.setItem('aiLabFavorites', JSON.stringify(favorites));
+            renderTools();
+            renderFavorites();
+            updateFavCount();
+        }
+
+        function toggleFavoriteFromModal() {
+            if (currentToolForModal) {
+                toggleFavorite(currentToolForModal);
+                // Update modal button
+                const isFav = favorites.includes(currentToolForModal);
+                document.getElementById('modalFavBtn').textContent = isFav ? '⭐' : '☆';
+            }
+        }
+
+        function updateFavCount() {
+            const count = favorites.length;
+            document.getElementById('favCount').textContent = count;
+            document.getElementById('toolkitCount').textContent = count;
+        }
+
+        // ============ RENDER TOOLS ============
+        function renderTools(filter = 'all', searchTerm = '') {
+            const grid = document.getElementById('toolsGrid');
+            const filteredTools = tools.filter(tool => {
+                const matchesFilter = filter === 'all' || tool.category === filter;
+                const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                     tool.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                     tool.description.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            const categoryColors = {
+                texto: { bg: 'bg-indigo-500/10', border: 'border-indigo-500', text: 'text-indigo-400', hover: 'hover:border-indigo-400' },
+                imagen: { bg: 'bg-purple-500/10', border: 'border-purple-500', text: 'text-purple-400', hover: 'hover:border-purple-400' },
+                video: { bg: 'bg-pink-500/10', border: 'border-pink-500', text: 'text-pink-400', hover: 'hover:border-pink-400' },
+                audio: { bg: 'bg-blue-500/10', border: 'border-blue-500', text: 'text-blue-400', hover: 'hover:border-blue-400' },
+                web: { bg: 'bg-green-500/10', border: 'border-green-500', text: 'text-green-400', hover: 'hover:border-green-400' }
+            };
+
+            grid.innerHTML = filteredTools.map(tool => {
+                const isFav = favorites.includes(tool.name);
+                const colors = categoryColors[tool.category];
+                const categoryIcons = { texto: '📝', imagen: '🎨', video: '🎬', audio: '🎙️', web: '🌐' };
+
+                return `
+                    <div class="bg-gray-800 rounded-lg border border-gray-700 ${colors.hover} transition-all hover:shadow-lg hover:shadow-${tool.category === 'texto' ? 'indigo' : tool.category === 'imagen' ? 'purple' : tool.category === 'video' ? 'pink' : tool.category === 'audio' ? 'blue' : 'green'}-500/20">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="${colors.bg} ${colors.border} border rounded-lg p-2 text-2xl">
+                                        ${categoryIcons[tool.category]}
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-lg">${tool.name}</h4>
+                                        <span class="text-xs ${colors.text} uppercase tracking-wide">${tool.category}</span>
+                                    </div>
+                                </div>
+                                <button onclick="toggleFavorite('${tool.name}')" class="text-2xl ${isFav ? 'text-yellow-400' : 'text-gray-600'} hover:scale-110 transition">
+                                    ${isFav ? '⭐' : '☆'}
+                                </button>
+                            </div>
+                            
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">${tool.description}</p>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="openToolModal('${tool.name}')" class="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition text-sm font-medium">
+                                    📋 Ver Docs
+                                </button>
+                                <a href="${tool.url}" target="_blank" class="flex-1 ${colors.bg} ${colors.text} border ${colors.border} px-4 py-2 rounded-lg hover:bg-opacity-20 transition text-sm font-medium text-center">
+                                    🚀 Abrir
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============ TOOL MODAL ============
+        function openToolModal(toolName) {
+            const tool = tools.find(t => t.name === toolName);
+            if (!tool) return;
+
+            currentToolForModal = toolName;
+            const modal = document.getElementById('toolModal');
+            const categoryColors = {
+                texto: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', border: 'border-indigo-500' },
+                imagen: { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500' },
+                video: { bg: 'bg-pink-500/20', text: 'text-pink-400', border: 'border-pink-500' },
+                audio: { bg: 'bg-blue-500/20', text: 'text-blue-400', border: 'border-blue-500' },
+                web: { bg: 'bg-green-500/20', text: 'text-green-400', border: 'border-green-500' }
+            };
+            const colors = categoryColors[tool.category];
+
+            document.getElementById('modalTitle').textContent = tool.name;
+            document.getElementById('modalCategory').className = `inline-block px-3 py-1 rounded-full text-sm font-medium ${colors.bg} ${colors.text} border ${colors.border}`;
+            document.getElementById('modalCategory').textContent = tool.category.toUpperCase();
+            document.getElementById('modalDescription').textContent = tool.description;
+            
+            document.getElementById('modalUseCases').innerHTML = tool.useCases.map(useCase => 
+                `<li class="flex items-start gap-2 text-gray-300">
+                    <span class="${colors.text}">→</span>
+                    <span>${useCase}</span>
+                </li>`
+            ).join('');
+            
+            document.getElementById('modalTips').innerHTML = tool.tips.map(tip => 
+                `<li class="flex items-start gap-2 text-gray-300">
+                    <span class="text-yellow-400">💡</span>
+                    <span>${tip}</span>
+                </li>`
+            ).join('');
+
+            document.getElementById('modalLink').href = tool.url;
+            
+            const isFav = favorites.includes(toolName);
+            document.getElementById('modalFavBtn').textContent = isFav ? '⭐' : '☆';
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal(event) {
+            if (!event || event.target.id === 'toolModal') {
+                document.getElementById('toolModal').classList.add('hidden');
+                currentToolForModal = null;
+            }
+        }
+
+        // ============ RENDER FAVORITES ============
+        function renderFavorites() {
+            const grid = document.getElementById('favoritesGrid');
+            const favTools = tools.filter(tool => favorites.includes(tool.name));
+
+            if (favTools.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 border-2 border-dashed border-gray-700 rounded-lg">
+                        <div class="text-6xl mb-4">🔬</div>
+                        <p class="text-lg text-gray-400 mb-2">Tu toolkit está vacío</p>
+                        <p class="text-sm text-gray-500">Haz clic en la estrella de cualquier herramienta para agregarla a tu colección personal</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const categoryColors = {
+                texto: { bg: 'bg-indigo-500/10', border: 'border-indigo-500', text: 'text-indigo-400' },
+                imagen: { bg: 'bg-purple-500/10', border: 'border-purple-500', text: 'text-purple-400' },
+                video: { bg: 'bg-pink-500/10', border: 'border-pink-500', text: 'text-pink-400' },
+                audio: { bg: 'bg-blue-500/10', border: 'border-blue-500', text: 'text-blue-400' },
+                web: { bg: 'bg-green-500/10', border: 'border-green-500', text: 'text-green-400' }
+            };
+
+            grid.innerHTML = favTools.map(tool => {
+                const colors = categoryColors[tool.category];
+                const categoryIcons = { texto: '📝', imagen: '🎨', video: '🎬', audio: '🎙️', web: '🌐' };
+
+                return `
+                    <div class="bg-gray-800 rounded-lg border-2 border-yellow-500/30 hover:border-yellow-500 transition-all">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="${colors.bg} ${colors.border} border rounded-lg p-2 text-2xl">
+                                        ${categoryIcons[tool.category]}
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-lg">${tool.name}</h4>
+                                        <span class="text-xs ${colors.text} uppercase tracking-wide">${tool.category}</span>
+                                    </div>
+                                </div>
+                                <button onclick="toggleFavorite('${tool.name}')" class="text-2xl text-yellow-400 hover:scale-110 transition">⭐</button>
+                            </div>
+                            
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">${tool.description}</p>
+                            
+                            <div class="flex gap-2">
+                                <button onclick="openToolModal('${tool.name}')" class="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition text-sm font-medium">
+                                    📋 Ver Docs
+                                </button>
+                                <a href="${tool.url}" target="_blank" class="flex-1 ${colors.bg} ${colors.text} border ${colors.border} px-4 py-2 rounded-lg hover:bg-opacity-20 transition text-sm font-medium text-center">
+                                    🚀 Abrir
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============ FILTER TOOLS ============
+        function filterTools(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-gray-800', 'text-gray-300', 'border', 'border-gray-700');
+            });
+            event.target.classList.remove('bg-gray-800', 'text-gray-300', 'border', 'border-gray-700');
+            event.target.classList.add('bg-indigo-600', 'text-white');
+            
+            const searchTerm = document.getElementById('searchInput').value;
+            renderTools(category, searchTerm);
+        }
+
+        // ============ SEARCH ============
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderTools('all', e.target.value);
+        });
+
+        // ============ EXPORT TOOLKIT ============
+        function exportToolkit() {
+            if (favorites.length === 0) {
+                alert('Tu toolkit está vacío. Agrega herramientas primero.');
+                return;
+            }
+
+            const favTools = tools.filter(tool => favorites.includes(tool.name));
+            let exportText = '🧪 MI TOOLKIT PERSONAL - AI LAB\n';
+            exportText += '='.repeat(50) + '\n\n';
+            
+            const categories = [...new Set(favTools.map(t => t.category))];
+            categories.forEach(cat => {
+                const categoryTools = favTools.filter(t => t.category === cat);
+                exportText += `\n${cat.toUpperCase()}\n${'-'.repeat(30)}\n`;
+                categoryTools.forEach(tool => {
+                    exportText += `\n• ${tool.name}\n`;
+                    exportText += `  ${tool.url}\n`;
+                    exportText += `  ${tool.description}\n`;
+                });
+            });
+
+            exportText += '\n\n' + '='.repeat(50);
+            exportText += '\nExportado: ' + new Date().toLocaleDateString();
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(exportText).then(() => {
+                alert('✅ Tu toolkit ha sido copiado al portapapeles!');
+            });
+        }
+
+        // ============ KEYBOARD SHORTCUTS ============
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ============ INIT ============
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTools();
+            renderFavorites();
+            updateFavCount();
+            document.getElementById('totalTools').textContent = tools.length;
+        });
+    </script>
+</body>
+</html>
